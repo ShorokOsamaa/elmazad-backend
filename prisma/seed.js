@@ -1,41 +1,59 @@
+import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 const prisma = new PrismaClient();
+
+const dummyPassword = await bcrypt.hash("password", 10);
 
 const usersData = [
   {
     name: "John",
     email: "john@fake.com",
-    password: "somerandompassword",
+    password: dummyPassword,
     phone: "123456789",
     birthDate: new Date("1990-1-1"),
     gender: "male",
     country: "Egypt",
-    imagePaths:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+    imagePaths: "https://i.ibb.co/WkmL46Q/profile.png",
   },
   {
     name: "Emma",
     email: "emma@fake.com",
-    password: "anotherrandompassword",
+    password: dummyPassword,
     phone: "234567891",
     birthDate: new Date("1998-8-16"),
     gender: "female",
     country: "Egypt",
     city: "Alexandria",
-    imagePaths:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
   },
   {
     name: "Nancy",
     email: "nancy@fake.com",
-    password: "supersecurepassword",
+    password: dummyPassword,
     phone: "345678912",
     birthDate: new Date("1990-1-1"),
     gender: "female",
     country: "Egypt",
     city: "Cairo",
-    imagePaths:
-      "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png",
+  },
+  {
+    name: "Nour",
+    email: "nour@fake.com",
+    password: dummyPassword,
+    phone: "456789123",
+    birthDate: new Date("2005-2-16"),
+    gender: "female",
+    country: "Egypt",
+    city: "Tanta",
+  },
+  {
+    name: "Ahemd",
+    email: "ahmed@fake.com",
+    password: dummyPassword,
+    phone: "567891234",
+    birthDate: new Date("1999-10-1"),
+    gender: "male",
+    country: "Egypt",
+    city: "Mansoura",
   },
 ];
 
@@ -99,8 +117,8 @@ async function main() {
         startingPrice: 35000.0,
         reservedPrice: 40000.0,
         buyNowPrice: 50000.0,
-        startDate: new Date("2024-06-01T08:00:00Z"),
-        endDate: new Date("2024-06-15T08:00:00Z"),
+        startDate: new Date("2024-06-14T08:00:00Z"),
+        endDate: new Date("2024-06-22T08:00:00Z"),
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/QmJdnJ5/tesla-model3-front.jpg https://i.ibb.co/94C6NcN/tesla-model3-back.jpg",
@@ -128,12 +146,72 @@ async function main() {
         startingPrice: 2000.0,
         reservedPrice: 2100.0,
         buyNowPrice: 2600.0,
-        startDate: new Date("2024-06-03T09:00:00Z"),
-        endDate: new Date("2024-06-17T09:00:00Z"),
+        startDate: new Date("2024-06-13T09:00:00Z"),
+        endDate: new Date("2024-06-20T09:00:00Z"),
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/mSy4KzP/macbook-pro-front.jpg https://i.ibb.co/LdDhJTg/macbook-pro-back.jpg",
         sellerId: createdUsersIds[0],
+      },
+      {
+        name: "2018 BMW 3 Series",
+        category: "Cars",
+        description:
+          "A luxury sedan with a powerful engine and premium features.",
+        startingPrice: 25000.0,
+        reservedPrice: 28000.0,
+        buyNowPrice: 30000.0,
+        startDate: new Date("2024-06-13T08:00:00"),
+        endDate: new Date("2024-06-24T08:00:00"),
+        status: "ongoing",
+        imagePaths:
+          "https://i.ibb.co/Pc8kgJT/bmw.jpg https://i.ibb.co/qpbng5z/BMW-3.jpg",
+        sellerId: createdUsersIds[3],
+      },
+      {
+        name: "Sony PlayStation 5",
+        category: "Electronics",
+        description:
+          "Next-gen gaming console with 825GB SSD and ultra-high-speed SSD.",
+        startingPrice: 500.0,
+        reservedPrice: 600.0,
+        buyNowPrice: 700.0,
+        startDate: new Date("2024-06-10T12:00:00"),
+        endDate: new Date("2024-06-19T12:00:00"),
+        status: "ongoing",
+        imagePaths:
+          "https://i.ibb.co/8sVrMZQ/sony.jpg https://i.ibb.co/PZWgSZj/sony2.jpg",
+        sellerId: createdUsersIds[3],
+      },
+      {
+        name: "2020 Audi A4",
+        category: "Cars",
+        description:
+          "Compact executive car with advanced tech and a comfortable interior.",
+        startingPrice: 30000.0,
+        reservedPrice: 33000.0,
+        buyNowPrice: 35000.0,
+        startDate: new Date("2024-06-04T09:00:00"),
+        endDate: new Date("2024-06-18T09:00:00"),
+        status: "ongoing",
+        imagePaths:
+          "https://i.ibb.co/yV58f5h/a4.jpg https://i.ibb.co/K523DHp/a4.jpg",
+        sellerId: createdUsersIds[2],
+      },
+      {
+        name: "Microsoft Surface Pro 8",
+        category: "Electronics",
+        description:
+          "2-in-1 laptop with a 13-inch touchscreen, Intel i7, 16GB RAM, and 512GB SSD.",
+        startingPrice: 1200.0,
+        reservedPrice: 1400.0,
+        buyNowPrice: 1500.0,
+        startDate: new Date("2024-06-06T11:00:00"),
+        endDate: new Date("2024-06-19T11:00:00"),
+        status: "ongoing",
+        imagePaths:
+          "https://i.ibb.co/thDn3dS/micro.jpg https://i.ibb.co/ftYPXzK/micro.jpg",
+        sellerId: createdUsersIds[2],
       },
     ],
   });
@@ -153,7 +231,7 @@ async function main() {
       itemId: createdItemsIds[1],
       userId: createdUsersIds[2],
       amount: 750.0,
-      placedAt: new Date(),
+      placedAt: new Date("2024-06-13T09:00:00Z"),
     },
     {
       itemId: createdItemsIds[2],
@@ -165,6 +243,24 @@ async function main() {
       itemId: createdItemsIds[2],
       userId: createdUsersIds[1],
       amount: 2200.0,
+      placedAt: new Date(),
+    },
+    {
+      itemId: createdItemsIds[0],
+      userId: createdUsersIds[3],
+      amount: 40000.0,
+      placedAt: new Date(),
+    },
+    {
+      itemId: createdItemsIds[2],
+      userId: createdUsersIds[3],
+      amount: 2300.0,
+      placedAt: new Date(),
+    },
+    {
+      itemId: createdItemsIds[6],
+      userId: createdUsersIds[3],
+      amount: 1400.0,
       placedAt: new Date(),
     },
   ];

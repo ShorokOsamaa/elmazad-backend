@@ -17,7 +17,7 @@ model User {
   gender     String
   country    String
   city       String?
-  imagePaths String
+  imagePaths String   @default("https://i.ibb.co/zQY5thg/img.png")
 
   items       Item[]
   bids        Bid[]
