@@ -4,7 +4,8 @@ const router = Router();
 import {
   getAllItems,
   addNewItem,
-  getProductById,
+  getItemById,
+  getItemsByCategory,
   deleteItem,
   updateItem,
   getItemBids,
@@ -14,7 +15,9 @@ import {
 // Routes
 router.route("/").get(getAllItems).post(addNewItem);
 
-router.route("/:id").get(getProductById).delete(deleteItem).patch(updateItem);
+router.route("/:id").get(getItemById).delete(deleteItem).patch(updateItem);
+
+router.route("/category/:category").get(getItemsByCategory);
 
 router.route("/:id/bid").get(getItemBids).post(addBid);
 

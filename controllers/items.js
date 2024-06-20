@@ -13,8 +13,34 @@ export const addNewItem = async (req, res, next) => {
   res.send("TO DO POST /items");
 };
 
-export const getProductById = async (req, res, next) => {
-  res.send("TO DO GET /items/:id");
+export const getItemById = async (req, res, next) => {
+  const id = req.params.id;
+
+  const item = await prisma.item.findFirst({
+    where: { id: id },
+    include: {
+      bids: true,
+    },
+  });
+  res.status(StatusCodes.OK).json({ message: "success", item });
+};
+
+export const getItemsByCategory = async (req, res, next) => {
+  const category = req.params.category;
+
+  try {
+    const items = await prisma.item.findMany({
+      where: {
+        category: category.toLowerCase(),
+      },
+    });
+
+    res
+      .status(StatusCodes.OK)
+      .json({ message: "success", count: items.length, items });
+  } catch (error) {
+    next(error);
+  }
 };
 
 export const deleteItem = async (req, res, next) => {

@@ -107,18 +107,38 @@ async function main() {
 
   // Items
   console.log("ITEMS");
+
+  const sevenDaysAgo = new Date();
+  sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
+  const twoDaysAgo = new Date();
+  twoDaysAgo.setDate(twoDaysAgo.getDate() - 2);
+  const tenDaysAgo = new Date();
+  tenDaysAgo.setDate(tenDaysAgo.getDate() - 10);
+  const monthAgo = new Date();
+  monthAgo.setDate(monthAgo.getDate() - 30);
+  const sevenDaysLater = new Date();
+  sevenDaysLater.setDate(sevenDaysLater.getDate() + 7);
+  const threeDaysLater = new Date();
+  threeDaysLater.setDate(threeDaysLater.getDate() + 3);
+  const elevenDaysLater = new Date();
+  elevenDaysLater.setDate(elevenDaysLater.getDate() + 11);
+  const seventeenDaysLater = new Date();
+  seventeenDaysLater.setDate(seventeenDaysLater.getDate() + 17);
+  const oneDayLater = new Date();
+  oneDayLater.setDate(oneDayLater.getDate() + 1);
+
   const items = await prisma.item.createMany({
     data: [
       {
         name: "2019 Tesla Model 3",
-        category: "Cars",
+        category: "cars",
         description:
           "A well-maintained, low-mileage electric car with autopilot features.",
         startingPrice: 35000.0,
         reservedPrice: 40000.0,
         buyNowPrice: 50000.0,
-        startDate: new Date("2024-06-14T08:00:00Z"),
-        endDate: new Date("2024-06-22T08:00:00Z"),
+        startDate: twoDaysAgo,
+        endDate: sevenDaysLater,
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/QmJdnJ5/tesla-model3-front.jpg https://i.ibb.co/94C6NcN/tesla-model3-back.jpg",
@@ -126,13 +146,13 @@ async function main() {
       },
       {
         name: "Samsung Galaxy S22",
-        category: "Electronics",
+        category: "electronics",
         description: "Brand new Samsung Galaxy S22 with 128GB storage.",
         startingPrice: 700.0,
         reservedPrice: 750,
         buyNowPrice: 1000.0,
-        startDate: new Date("2024-06-05T10:00:00Z"),
-        endDate: new Date("2024-06-09T10:00:00Z"),
+        startDate: monthAgo,
+        endDate: twoDaysAgo,
         status: "ended",
         imagePaths:
           "https://i.ibb.co/RBtf33r/galaxy-s22-front.jpg https://i.ibb.co/njpZ06L/galaxy-s22-back.png",
@@ -140,14 +160,14 @@ async function main() {
       },
       {
         name: 'Apple MacBook Pro 16" 2021',
-        category: "Electronics",
+        category: "electronics",
         description:
           "High-performance laptop with M1 Pro chip, 16GB RAM, and 1TB SSD.",
         startingPrice: 2000.0,
         reservedPrice: 2100.0,
         buyNowPrice: 2600.0,
-        startDate: new Date("2024-06-13T09:00:00Z"),
-        endDate: new Date("2024-06-20T09:00:00Z"),
+        startDate: sevenDaysAgo,
+        endDate: threeDaysLater,
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/mSy4KzP/macbook-pro-front.jpg https://i.ibb.co/LdDhJTg/macbook-pro-back.jpg",
@@ -155,14 +175,14 @@ async function main() {
       },
       {
         name: "2018 BMW 3 Series",
-        category: "Cars",
+        category: "cars",
         description:
           "A luxury sedan with a powerful engine and premium features.",
         startingPrice: 25000.0,
         reservedPrice: 28000.0,
         buyNowPrice: 30000.0,
-        startDate: new Date("2024-06-13T08:00:00"),
-        endDate: new Date("2024-06-24T08:00:00"),
+        startDate: twoDaysAgo,
+        endDate: elevenDaysLater,
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/Pc8kgJT/bmw.jpg https://i.ibb.co/qpbng5z/BMW-3.jpg",
@@ -170,14 +190,14 @@ async function main() {
       },
       {
         name: "Sony PlayStation 5",
-        category: "Electronics",
+        category: "electronics",
         description:
           "Next-gen gaming console with 825GB SSD and ultra-high-speed SSD.",
         startingPrice: 500.0,
         reservedPrice: 600.0,
         buyNowPrice: 700.0,
-        startDate: new Date("2024-06-10T12:00:00"),
-        endDate: new Date("2024-06-19T12:00:00"),
+        startDate: new Date(),
+        endDate: seventeenDaysLater,
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/8sVrMZQ/sony.jpg https://i.ibb.co/PZWgSZj/sony2.jpg",
@@ -185,14 +205,14 @@ async function main() {
       },
       {
         name: "2020 Audi A4",
-        category: "Cars",
+        category: "cars",
         description:
           "Compact executive car with advanced tech and a comfortable interior.",
         startingPrice: 30000.0,
         reservedPrice: 33000.0,
         buyNowPrice: 35000.0,
-        startDate: new Date("2024-06-04T09:00:00"),
-        endDate: new Date("2024-06-18T09:00:00"),
+        startDate: twoDaysAgo,
+        endDate: sevenDaysLater,
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/yV58f5h/a4.jpg https://i.ibb.co/K523DHp/a4.jpg",
@@ -200,14 +220,14 @@ async function main() {
       },
       {
         name: "Microsoft Surface Pro 8",
-        category: "Electronics",
+        category: "electronics",
         description:
           "2-in-1 laptop with a 13-inch touchscreen, Intel i7, 16GB RAM, and 512GB SSD.",
         startingPrice: 1200.0,
         reservedPrice: 1400.0,
         buyNowPrice: 1500.0,
-        startDate: new Date("2024-06-06T11:00:00"),
-        endDate: new Date("2024-06-19T11:00:00"),
+        startDate: tenDaysAgo,
+        endDate: oneDayLater,
         status: "ongoing",
         imagePaths:
           "https://i.ibb.co/thDn3dS/micro.jpg https://i.ibb.co/ftYPXzK/micro.jpg",
