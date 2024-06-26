@@ -19,6 +19,14 @@ class UnauthenticatedError extends CustomAPIError {
     this.statusCode = StatusCodes.UNAUTHORIZED;
   }
 }
+
+class UnprocessableEntityError extends CustomAPIError {
+  constructor(message) {
+    super(message);
+    this.statusCode = StatusCodes.UNPROCESSABLE_ENTITY;
+  }
+}
+
 class NotFoundError extends CustomAPIError {
   constructor(message) {
     super(message);
@@ -26,4 +34,10 @@ class NotFoundError extends CustomAPIError {
   }
 }
 
-export { CustomAPIError, BadRequestError, UnauthenticatedError, NotFoundError };
+export {
+  CustomAPIError,
+  BadRequestError,
+  UnauthenticatedError,
+  UnprocessableEntityError,
+  NotFoundError,
+};
