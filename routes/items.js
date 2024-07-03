@@ -14,7 +14,7 @@ import {
 } from "../controllers/items.js";
 
 // Routes
-router.route("/").get(getAllItems).post(addNewItem);
+router.route("/").get(getAllItems).post(authenticateToken, addNewItem);
 
 router.route("/:id").get(getItemById).delete(deleteItem).patch(updateItem);
 

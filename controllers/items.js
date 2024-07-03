@@ -14,7 +14,68 @@ export const getAllItems = async (req, res, next) => {
 };
 
 export const addNewItem = async (req, res, next) => {
-  res.send("TO DO POST /items");
+  // const itemId = req.params.id;
+  const userId = req.user.id;
+  const {
+    name,
+    category,
+    description,
+    startingPrice,
+    reservedPrice,
+    buyNowPrice,
+    startDate,
+    endDate,
+    status,
+    imagePaths,
+  } = req.body;
+
+  const data = {
+    name,
+    category,
+    description,
+    startingPrice,
+    reservedPrice,
+    buyNowPrice,
+    startDate: new Date(startDate),
+    endDate: new Date(endDate),
+    status,
+    imagePaths,
+    sellerId: userId,
+  };
+
+  function isDifferenceLessThanOneDay(date1, date2) {
+    const msPerDay = 24 * 60 * 60 * 1000;
+    const date1Ms = date1.getTime();
+    const date2Ms = date2.getTime();
+
+    const differenceMs = Math.abs(date1Ms - date2Ms);
+    const differenceDays = differenceMs / msPerDay;
+
+    return differenceDays < 1;
+  }
+
+  // Validations
+  if (!userId) {
+    throw new BadRequestError("Authntication is required");
+  }
+  if (data.startDate < new Date()) {
+    throw new UnprocessableEntityError("Start date can't be in the past");
+  }
+  if (data.startDate > data.endDate) {
+    throw new UnprocessableEntityError("Incorrect end date");
+  }
+  if (isDifferenceLessThanOneDay(data.startDate, data.endDate)) {
+    throw new UnprocessableEntityError("Auction time can't be less than 1 day");
+  }
+
+  const filteredData = Object.fromEntries(
+    Object.entries(data).filter(([key, value]) => value !== undefined)
+  );
+
+  const newItem = await prisma.item.create({ data: filteredData });
+
+  // Response
+  res.status(StatusCodes.CREATED).json({ message: "success", item: newItem });
 };
 
 export const getItemById = async (req, res, next) => {
