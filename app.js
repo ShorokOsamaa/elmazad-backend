@@ -3,14 +3,16 @@ import cors from "cors";
 import "express-async-errors";
 import itemsRouter from "./routes/items.js";
 import usersRouter from "./routes/users.js";
+import notificationRouter from "./routes/notifications.js";
+import { CustomAPIError } from "./errors/custom-error.js";
 import dotenv from "dotenv";
 dotenv.config();
-
-import { PrismaClient } from "@prisma/client";
-import { CustomAPIError } from "./errors/custom-error.js";
-const prisma = new PrismaClient();
+import http from "http";
+import { Server } from "socket.io";
 
 const app = express();
+const server = http.createServer(app);
+const io = new Server(server);
 
 // MIDDLEWARE
 app.use(express.json());
@@ -20,6 +22,10 @@ app.use(cors());
 //     origin: "http://localhost:5173",
 //   })
 // );
+app.use((req, res, next) => {
+  req.io = io;
+  next();
+});
 
 // Routes
 app.get("/", (req, res) => {
@@ -27,6 +33,7 @@ app.get("/", (req, res) => {
 });
 app.use("/api/v1/item", itemsRouter);
 app.use("/api/v1/user", usersRouter);
+app.use("/api/v1/notification", notificationRouter);
 
 // Global Error Handler
 app.use((err, req, res, next) => {
@@ -42,4 +49,4 @@ app.use((err, req, res, next) => {
 
 // SERVER
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Server is running in port ${port}`));
+server.listen(port, () => console.log(`Server is running in port ${port}`));

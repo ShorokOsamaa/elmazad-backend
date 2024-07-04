@@ -129,6 +129,7 @@ export const addBid = async (req, res, next) => {
     where: { id: itemId },
     include: {
       bids: true,
+      seller: true,
     },
   });
 
@@ -161,6 +162,14 @@ export const addBid = async (req, res, next) => {
       userId,
       amount,
       placedAt: new Date(),
+    },
+  });
+
+  // Notify the seller
+  await prisma.notification.create({
+    data: {
+      userId: item.sellerId,
+      message: `New bid placed on your item: ${item.name}`,
     },
   });
 

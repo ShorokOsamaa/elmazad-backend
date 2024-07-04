@@ -34,10 +34,18 @@ class NotFoundError extends CustomAPIError {
   }
 }
 
+class ServerError extends CustomAPIError {
+  constructor(message) {
+    super(message);
+    this.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
+  }
+}
+
 export {
   CustomAPIError,
   BadRequestError,
   UnauthenticatedError,
   UnprocessableEntityError,
   NotFoundError,
+  ServerError,
 };

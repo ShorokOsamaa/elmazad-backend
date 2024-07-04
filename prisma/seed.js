@@ -89,6 +89,7 @@ async function main() {
   await prisma.bid.deleteMany();
   await prisma.item.deleteMany();
   await prisma.user.deleteMany();
+  await prisma.notification.deleteMany();
 
   console.log("\n\n\nOUTPUT");
 
